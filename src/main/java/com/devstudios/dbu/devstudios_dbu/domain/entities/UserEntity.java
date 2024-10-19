@@ -7,7 +7,7 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 
@@ -22,8 +22,8 @@ public class UserEntity extends EntityBase {
 
     @ManyToMany
     private final List<RoleEntity> roles = new ArrayList<>();
-    @OneToMany(cascade=CascadeType.ALL)
-    private final List<CodeAuthEntity> authCodes = new ArrayList<>();
+    @OneToOne(cascade=CascadeType.ALL)
+    private CodeAuthEntity authCode;
 
 
     public UserEntity(){}
@@ -49,11 +49,11 @@ public class UserEntity extends EntityBase {
     public void setRole(RoleEntity role) {
         this.roles.add(role);
     }
-    public List<CodeAuthEntity> getAuthCodes() {
-        return authCodes;
+    public CodeAuthEntity getAuthCode() {
+        return authCode;
     }
     public void setAuthCode(CodeAuthEntity code) {
-        this.authCodes.add(code);
+        this.authCode = code;
     }
 
 }
