@@ -1,7 +1,5 @@
 package com.devstudios.dbu.devstudios_dbu.application.services;
 
-import java.time.Duration;
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,15 +57,7 @@ public class AuthService {
     public ResponseDto<UserEntity> verifyAccountByCode( String code ){
         UserEntity userDb = userRepository.findUserByCode(code)
             .orElseThrow( () -> CustomException.NotFoundException("Code expired"));
-
         var codeDb = userDb.getAuthCode();
-        LocalDateTime currentDateTime = LocalDateTime.now();
-
-        Duration duration = Duration.between(codeDb.getCreatedAt(), currentDateTime);
-
-        if (duration.getSeconds() >= 300) {
-            throw CustomException.BadRequestException("Code has expired. Please request a new one.");
-        }
 
         userDb.setAuthCode(null);
         codeAuthRepository.deleteById(codeDb.getId());
