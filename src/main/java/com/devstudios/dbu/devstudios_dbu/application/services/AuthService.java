@@ -12,6 +12,7 @@ import com.devstudios.dbu.devstudios_dbu.application.interfaces.repositories.IUs
 import com.devstudios.dbu.devstudios_dbu.application.interfaces.services.IRandomCodes;
 import com.devstudios.dbu.devstudios_dbu.domain.entities.CodeAuthEntity;
 import com.devstudios.dbu.devstudios_dbu.domain.entities.UserEntity;
+import com.devstudios.dbu.devstudios_dbu.domain.exceptions.CustomException;
 
 
 
@@ -54,9 +55,10 @@ public class AuthService {
     }
 
     public ResponseDto<UserEntity> verifyAccountByCode( String code ){
-        Optional<UserEntity> userDb = userRepository.findUserByCode(code);
+        UserEntity userDb = userRepository.findUserByCode(code)
+            .orElseThrow( () -> CustomException.NotFoundException("Code expired"));
 
-        return new ResponseDto<>(userDb.get(), 200, "its working!");
+        return new ResponseDto<>(userDb, 200, "its working!");
     }
 
 }
