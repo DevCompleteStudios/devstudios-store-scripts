@@ -1,14 +1,14 @@
 package com.devstudios.dbu.devstudios_dbu.domain.entities;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -18,12 +18,12 @@ public class UserEntity extends EntityBase {
     @Column(unique=true)
     private String email;
 
-    private List<String> robloxAccounts = new ArrayList<>();
-
     @ManyToMany
     private final List<RoleEntity> roles = new ArrayList<>();
     @OneToOne(cascade=CascadeType.ALL)
     private CodeAuthEntity authCode;
+    @OneToMany
+    private List<PurchacesEntity> purchases = new ArrayList<>();
 
 
     public UserEntity(){}
@@ -36,12 +36,6 @@ public class UserEntity extends EntityBase {
     }
     public void setEmail(String email) {
         this.email = email;
-    }
-    public List<String> getRobloxAccounts() {
-        return robloxAccounts;
-    }
-    public void setRobloxAccounts(List<String> robloxAccounts) {
-        this.robloxAccounts = robloxAccounts;
     }
     public List<RoleEntity> getRoles() {
         return roles;
@@ -58,8 +52,8 @@ public class UserEntity extends EntityBase {
 
     @Override
     public String toString() {
-        return "UserEntity [email=" + email + ", robloxAccounts=" + robloxAccounts + ", roles=" + roles + ", authCode="
-                + authCode + ", getEmail()=" + getEmail() + ", getRobloxAccounts()=" + getRobloxAccounts()
+        return "UserEntity [email=" + email + ", robloxAccounts=" + ", roles=" + roles + ", authCode="
+                + authCode + ", getEmail()=" + getEmail()
                 + ", getId()=" + getId() + ", getRoles()=" + getRoles() + ", getAuthCode()=" + getAuthCode() + "]";
     }
 
