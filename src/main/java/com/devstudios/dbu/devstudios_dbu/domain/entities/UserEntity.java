@@ -56,4 +56,11 @@ public class UserEntity extends EntityBase {
         this.authCode = code;
     }
 
+    @Override
+    public String toString() {
+        return "UserEntity [email=" + email + ", robloxAccounts=" + robloxAccounts + ", roles=" + roles + ", authCode="
+                + authCode + ", getEmail()=" + getEmail() + ", getRobloxAccounts()=" + getRobloxAccounts()
+                + ", getId()=" + getId() + ", getRoles()=" + getRoles() + ", getAuthCode()=" + getAuthCode() + "]";
+    }
+
 }
