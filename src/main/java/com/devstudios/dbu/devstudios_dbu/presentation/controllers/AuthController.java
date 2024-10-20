@@ -1,5 +1,9 @@
 package com.devstudios.dbu.devstudios_dbu.presentation.controllers;
 
+import com.devstudios.dbu.devstudios_dbu.application.dtos.Auth.RegisterUserDto;
+import com.devstudios.dbu.devstudios_dbu.application.dtos.ResponseDto;
+import com.devstudios.dbu.devstudios_dbu.application.services.AuthService;
+import com.devstudios.dbu.devstudios_dbu.domain.entities.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -9,11 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.devstudios.dbu.devstudios_dbu.application.dtos.Auth.RegisterUserDto;
-import com.devstudios.dbu.devstudios_dbu.application.dtos.ResponseDto;
-import com.devstudios.dbu.devstudios_dbu.application.services.AuthService;
-import com.devstudios.dbu.devstudios_dbu.domain.entities.UserEntity;
 
 
 
@@ -33,7 +32,7 @@ public class AuthController {
     }
 
     @GetMapping("/verify-account/{code}")
-    public ResponseEntity<ResponseDto<UserEntity>> verifyAccount( @PathVariable String code ){
+    public ResponseEntity<ResponseDto<String>> verifyAccount( @PathVariable String code ){
         var res = service.verifyAccountByCode(code);
         return ResponseEntity.status(res.getStatus()).body(res);
     }

@@ -1,18 +1,17 @@
 package com.devstudios.dbu.devstudios_dbu.application.services;
 
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.devstudios.dbu.devstudios_dbu.application.dtos.Auth.RegisterUserDto;
 import com.devstudios.dbu.devstudios_dbu.application.dtos.ResponseDto;
 import com.devstudios.dbu.devstudios_dbu.application.interfaces.repositories.ICodeAuthRepository;
 import com.devstudios.dbu.devstudios_dbu.application.interfaces.repositories.IUserRepository;
+import com.devstudios.dbu.devstudios_dbu.application.interfaces.services.IJwtService;
 import com.devstudios.dbu.devstudios_dbu.application.interfaces.services.IRandomCodes;
 import com.devstudios.dbu.devstudios_dbu.domain.entities.CodeAuthEntity;
 import com.devstudios.dbu.devstudios_dbu.domain.entities.UserEntity;
 import com.devstudios.dbu.devstudios_dbu.domain.exceptions.CustomException;
+import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 
 
@@ -25,6 +24,8 @@ public class AuthService {
     IRandomCodes randomCode;
     @Autowired
     ICodeAuthRepository codeAuthRepository;
+    @Autowired
+    IJwtService jwtService;
 
 
     public ResponseDto<UserEntity> RegisterUser( RegisterUserDto userDto ){
@@ -54,7 +55,7 @@ public class AuthService {
         return new ResponseDto<>(user, status, "Check the code that was sent to your email.");
     }
 
-    public ResponseDto<UserEntity> verifyAccountByCode( String code ){
+    public ResponseDto<String> verifyAccountByCode( String code ){
         UserEntity userDb = userRepository.findUserByCode(code)
             .orElseThrow( () -> CustomException.NotFoundException("Code expired"));
         var codeDb = userDb.getAuthCode();
@@ -63,7 +64,7 @@ public class AuthService {
         codeAuthRepository.deleteById(codeDb.getId());
         userRepository.save(userDb);
 
-        return new ResponseDto<>(userDb, 200, "its working!");
+        return new ResponseDto<>(jwtService.createToken(userDb.getRoles(), userDb.getEmail()), 200, "its working!");
     }
 
 }
