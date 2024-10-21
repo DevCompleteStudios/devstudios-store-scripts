@@ -1,8 +1,11 @@
 package com.devstudios.dbu.devstudios_dbu.domain.entities;
 
-import com.devstudios.dbu.devstudios_dbu.application.interfaces.enums.ScriptStatus;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -12,7 +15,11 @@ public class ScriptEntity extends EntityBase {
     private String description;
     private String name;
     private String url;
-    private ScriptStatus status;
+    private String image;
+    private Double price;
+
+    @OneToMany(mappedBy = "script")
+    private List<PurchasesEntity> purchases = new ArrayList<>();
 
 
     public String getDescription() {
@@ -33,11 +40,17 @@ public class ScriptEntity extends EntityBase {
     public void setUrl(String url) {
         this.url = url;
     }
-    public ScriptStatus getStatus() {
-        return status;
+    public String getImage() {
+        return image;
     }
-    public void setStatus(ScriptStatus status) {
-        this.status = status;
+    public void setImage(String image) {
+        this.image = image;
+    }
+    public Double getPrice() {
+        return price;
+    }
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
 }

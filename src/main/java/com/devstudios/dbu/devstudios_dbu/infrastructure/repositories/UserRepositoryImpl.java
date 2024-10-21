@@ -1,14 +1,11 @@
 package com.devstudios.dbu.devstudios_dbu.infrastructure.repositories;
 
+import com.devstudios.dbu.devstudios_dbu.application.interfaces.repositories.IUserRepository;
+import com.devstudios.dbu.devstudios_dbu.domain.entities.UserEntity;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
-import com.devstudios.dbu.devstudios_dbu.application.interfaces.repositories.IUserRepository;
-import com.devstudios.dbu.devstudios_dbu.domain.entities.CodeAuthEntity;
-import com.devstudios.dbu.devstudios_dbu.domain.entities.UserEntity;
 
 
 

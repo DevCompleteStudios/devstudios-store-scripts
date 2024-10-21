@@ -50,7 +50,7 @@ public class JwtService implements IJwtService {
     @Override
     public Collection<GrantedAuthority> rolesToCollection(List<RoleEntity> roles) {
         Collection<GrantedAuthority> authorities = roles.stream()
-            .map( r -> new SimpleGrantedAuthority(r.getRole()) )
+            .map( r -> new SimpleGrantedAuthority(r.getRole().name()) )
             .collect(Collectors.toList());
 
         return authorities;

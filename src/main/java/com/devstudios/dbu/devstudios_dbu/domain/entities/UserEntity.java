@@ -20,10 +20,16 @@ public class UserEntity extends EntityBase {
 
     @ManyToMany
     private final List<RoleEntity> roles = new ArrayList<>();
+
     @OneToOne(cascade=CascadeType.ALL)
     private CodeAuthEntity authCode;
-    @OneToMany
-    private List<PurchacesEntity> purchases = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<PurchasesEntity> purchaseScripts = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<PurchaseSubscriptionEntity> purchaseSubscriptions = new ArrayList<>();
+
 
 
     public UserEntity(){}
@@ -49,12 +55,17 @@ public class UserEntity extends EntityBase {
     public void setAuthCode(CodeAuthEntity code) {
         this.authCode = code;
     }
-
-    @Override
-    public String toString() {
-        return "UserEntity [email=" + email + ", robloxAccounts=" + ", roles=" + roles + ", authCode="
-                + authCode + ", getEmail()=" + getEmail()
-                + ", getId()=" + getId() + ", getRoles()=" + getRoles() + ", getAuthCode()=" + getAuthCode() + "]";
+    public List<PurchasesEntity> getPurchaseScripts() {
+        return purchaseScripts;
+    }
+    public void setPurchaseScripts(List<PurchasesEntity> purchaseScripts) {
+        this.purchaseScripts = purchaseScripts;
+    }
+    public List<PurchaseSubscriptionEntity> getPurchaseSubscriptions() {
+        return purchaseSubscriptions;
+    }
+    public void setPurchaseSubscriptions(List<PurchaseSubscriptionEntity> purchaseSubscriptions) {
+        this.purchaseSubscriptions = purchaseSubscriptions;
     }
 
 }
