@@ -1,6 +1,7 @@
 package com.devstudios.dbu.devstudios_dbu.infrastructure.repositories;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -36,6 +37,11 @@ public class ScriptsRepositoryImpl implements IScriptsRepository {
     @Override
     public void delete(Long id) {
         repositoryJpa.deleteById(id);
+    }
+
+    @Override
+    public Optional<ScriptEntity> findById(Long id) {
+        return repositoryJpa.findById(id);
     }
 
 }
