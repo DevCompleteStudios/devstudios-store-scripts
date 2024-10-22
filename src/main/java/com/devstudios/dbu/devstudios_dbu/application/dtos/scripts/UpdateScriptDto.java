@@ -4,6 +4,7 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Size;
 import org.hibernate.validator.constraints.URL;
+import org.springframework.web.multipart.MultipartFile;
 
 
 public class UpdateScriptDto {
@@ -16,7 +17,7 @@ public class UpdateScriptDto {
     @Size(min = 10, max = 250)
     private String description;
 
-    // private Object image;
+    private MultipartFile image;
 
     @Min(value = 1)
     @Max(value = 199)
@@ -63,6 +64,14 @@ public class UpdateScriptDto {
 
     public void setIsActive(Boolean isActive) {
         this.isActive = isActive;
+    }
+
+    public MultipartFile getImage() {
+        return image;
+    }
+
+    public void setImage(MultipartFile image) {
+        this.image = image;
     }
 
 

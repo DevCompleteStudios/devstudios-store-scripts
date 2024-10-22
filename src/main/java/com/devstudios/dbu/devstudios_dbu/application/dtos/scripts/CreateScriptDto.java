@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import org.hibernate.validator.constraints.URL;
+import org.springframework.web.multipart.MultipartFile;
 
 
 
@@ -22,8 +23,8 @@ public class CreateScriptDto {
     @NotNull
     private String description;
 
-    // @NotNull
-    // private Object image;
+    @NotNull
+    private MultipartFile image;
 
     @NotNull
     @Min(value = 1)
@@ -49,12 +50,12 @@ public class CreateScriptDto {
     public void setDescription(String description) {
         this.description = description;
     }
-    // public Object getImage() {
-    //     return image;
-    // }
-    // public void setImage(Object image) {
-    //     this.image = image;
-    // }
+    public MultipartFile getImage() {
+        return image;
+    }
+    public void setImage(MultipartFile image) {
+        this.image = image;
+    }
     public Double getPrice() {
         return price;
     }

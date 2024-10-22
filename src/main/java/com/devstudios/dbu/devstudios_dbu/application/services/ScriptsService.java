@@ -5,6 +5,7 @@ import com.devstudios.dbu.devstudios_dbu.application.dtos.scripts.CreateScriptDt
 import com.devstudios.dbu.devstudios_dbu.application.dtos.scripts.UpdateScriptDto;
 import com.devstudios.dbu.devstudios_dbu.application.interfaces.projections.IScript;
 import com.devstudios.dbu.devstudios_dbu.application.interfaces.repositories.IScriptsRepository;
+import com.devstudios.dbu.devstudios_dbu.application.interfaces.services.IFilesService;
 import com.devstudios.dbu.devstudios_dbu.domain.entities.ScriptEntity;
 import com.devstudios.dbu.devstudios_dbu.domain.exceptions.CustomException;
 import com.devstudios.dbu.devstudios_dbu.domain.mappers.AutoMapper;
@@ -21,6 +22,8 @@ public class ScriptsService {
     IScriptsRepository scriptsRepository;
     @Autowired
     AutoMapper mapper;
+    @Autowired
+    IFilesService filesService;
 
 
     public ResponseDto<IScript> create( CreateScriptDto createScriptDto ){
@@ -53,6 +56,11 @@ public class ScriptsService {
         if( scriptDto.getPrice() != null ) scriptDb.setPrice(scriptDto.getPrice());
         if( scriptDto.getUrl() != null ) scriptDb.setUrl(scriptDto.getUrl());
         if( scriptDto.getIsActive() != null ) scriptDb.setIsActive(scriptDto.getIsActive());
+
+        if( scriptDto.getImage() != null ){
+            String url = filesService.upload(scriptDto.getImage(), "images/");
+            scriptDb.setImage(url);
+        }
 
         scriptsRepository.save(scriptDb);
 
