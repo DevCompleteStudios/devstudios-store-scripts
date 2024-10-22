@@ -31,8 +31,8 @@ public class JwtService implements IJwtService {
                 String token = Jwts.builder()
                 .subject(username)
                 .claims(claims)
-                .signWith(getKey())
-                .expiration(getDateExpire())
+                .expiration( getDateExpire() )
+                .signWith( getKey() )
                 .compact();
 
             return token;
@@ -49,11 +49,11 @@ public class JwtService implements IJwtService {
 
     @Override
     public Collection<GrantedAuthority> rolesToCollection(List<RoleEntity> roles) {
-        Collection<GrantedAuthority> authorities = roles.stream()
-            .map( r -> new SimpleGrantedAuthority(r.getRole().name()) )
+        Collection<GrantedAuthority> rolesCollection = roles.stream()
+            .map( r -> new SimpleGrantedAuthority(r.getRole()) )
             .collect(Collectors.toList());
 
-        return authorities;
+        return rolesCollection;
     }
 
 }

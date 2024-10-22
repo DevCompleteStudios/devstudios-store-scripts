@@ -67,6 +67,7 @@ public class JwtAuthValidatioFilterService extends BasicAuthenticationFilter {
 
             UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
                 email,
+                null,
                 roles
             );
 
