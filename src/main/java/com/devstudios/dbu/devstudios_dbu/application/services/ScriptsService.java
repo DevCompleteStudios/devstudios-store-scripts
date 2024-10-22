@@ -18,6 +18,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class ScriptsService {
 
+    private final String PATH_IMAGES = "images/";
+
     @Autowired
     IScriptsRepository scriptsRepository;
     @Autowired
@@ -33,6 +35,9 @@ public class ScriptsService {
         newScript.setName(createScriptDto.getName());
         newScript.setPrice(createScriptDto.getPrice());
         newScript.setUrl(createScriptDto.getUrl());
+
+        String url = filesService.upload(createScriptDto.getImage(), PATH_IMAGES);
+        newScript.setImage(url);
 
         ScriptEntity script = scriptsRepository.save(newScript);
 
@@ -58,7 +63,7 @@ public class ScriptsService {
         if( scriptDto.getIsActive() != null ) scriptDb.setIsActive(scriptDto.getIsActive());
 
         if( scriptDto.getImage() != null ){
-            String url = filesService.upload(scriptDto.getImage(), "images/");
+            String url = filesService.upload(scriptDto.getImage(), PATH_IMAGES);
             scriptDb.setImage(url);
         }
 
