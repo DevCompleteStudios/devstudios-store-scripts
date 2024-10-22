@@ -74,6 +74,8 @@ public class JwtAuthValidatioFilterService extends BasicAuthenticationFilter {
                 .getContext()
                 .setAuthentication(auth);
             chain.doFilter(request, response);
+
+            System.out.println("User si paso");
         } catch (Exception ex) {
             Map<String, Object> body = new HashMap<>();
             System.out.println(ex.getMessage());

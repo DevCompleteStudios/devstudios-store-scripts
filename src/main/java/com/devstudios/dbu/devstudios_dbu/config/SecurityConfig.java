@@ -47,6 +47,7 @@ public class SecurityConfig {
             .authorizeHttpRequests( authz -> authz
                 .requestMatchers(HttpMethod.POST, "/api/auth/register").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/auth/verify-account/{code}").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/script/find-all").permitAll()
                 .anyRequest().authenticated()
             )
             .addFilter( new JwtAuthValidatioFilterService(authenticationManager(), getKey()) )

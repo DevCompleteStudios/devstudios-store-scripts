@@ -52,5 +52,11 @@ public class ScriptEntity extends EntityBase {
     public void setPrice(Double price) {
         this.price = price;
     }
+    public List<PurchasesEntity> getPurchases() {
+        return purchases;
+    }
+    public void setPurchases(List<PurchasesEntity> purchases) {
+        this.purchases = purchases;
+    }
 
 }
