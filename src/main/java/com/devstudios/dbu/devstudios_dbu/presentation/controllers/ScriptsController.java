@@ -1,15 +1,18 @@
 package com.devstudios.dbu.devstudios_dbu.presentation.controllers;
 
 import com.devstudios.dbu.devstudios_dbu.application.dtos.ResponseDto;
+import com.devstudios.dbu.devstudios_dbu.application.dtos.scripts.CreateScriptDto;
 import com.devstudios.dbu.devstudios_dbu.application.interfaces.projections.IScript;
 import com.devstudios.dbu.devstudios_dbu.application.services.ScriptsService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,8 +34,9 @@ public class ScriptsController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/create")
-    public ResponseEntity<IScript> create(){
-        return ResponseEntity.ok(null);
+    public ResponseEntity<ResponseDto<IScript>> create( @Validated @RequestBody CreateScriptDto scriptDto ){
+        var res = service.create(scriptDto);
+        return ResponseEntity.status(res.getStatus()).body(res);
     }
 
     @DeleteMapping("/delete")

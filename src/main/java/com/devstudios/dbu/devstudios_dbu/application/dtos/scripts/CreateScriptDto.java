@@ -2,7 +2,7 @@ package com.devstudios.dbu.devstudios_dbu.application.dtos.scripts;
 
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import org.hibernate.validator.constraints.URL;
 
@@ -11,20 +11,21 @@ import org.hibernate.validator.constraints.URL;
 public class CreateScriptDto {
 
     @Size(min = 4, max = 80)
-    @NotEmpty
+    @NotNull
     private String name;
 
     @URL
+    @NotNull
     private String url;
 
     @Size(min = 10, max = 250)
-    @NotEmpty
+    @NotNull
     private String description;
 
-    @NotEmpty
-    private Object image;
+    // @NotNull
+    // private Object image;
 
-    @NotEmpty
+    @NotNull
     @Min(value = 1)
     @Max(value = 199)
     private Double price;
@@ -48,12 +49,12 @@ public class CreateScriptDto {
     public void setDescription(String description) {
         this.description = description;
     }
-    public Object getImage() {
-        return image;
-    }
-    public void setImage(Object image) {
-        this.image = image;
-    }
+    // public Object getImage() {
+    //     return image;
+    // }
+    // public void setImage(Object image) {
+    //     this.image = image;
+    // }
     public Double getPrice() {
         return price;
     }
