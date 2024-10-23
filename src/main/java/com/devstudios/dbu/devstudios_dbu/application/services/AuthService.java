@@ -5,6 +5,7 @@ import com.devstudios.dbu.devstudios_dbu.application.dtos.ResponseDto;
 import com.devstudios.dbu.devstudios_dbu.application.interfaces.repositories.ICodeAuthRepository;
 import com.devstudios.dbu.devstudios_dbu.application.interfaces.repositories.IUserRepository;
 import com.devstudios.dbu.devstudios_dbu.application.interfaces.services.IJwtService;
+import com.devstudios.dbu.devstudios_dbu.application.interfaces.services.IMailerService;
 import com.devstudios.dbu.devstudios_dbu.application.interfaces.services.IRandomCodes;
 import com.devstudios.dbu.devstudios_dbu.domain.entities.CodeAuthEntity;
 import com.devstudios.dbu.devstudios_dbu.domain.entities.UserEntity;
@@ -26,6 +27,8 @@ public class AuthService {
     ICodeAuthRepository codeAuthRepository;
     @Autowired
     IJwtService jwtService;
+    @Autowired
+    IMailerService mailerService;
 
 
     public ResponseDto<UserEntity> RegisterUser( RegisterUserDto userDto ){
@@ -47,10 +50,13 @@ public class AuthService {
         }
 
         CodeAuthEntity codeAuth = new CodeAuthEntity();
-        codeAuth.setCode(randomCode.authGenerateCode(6));
+        String code = randomCode.authGenerateCode(6);
+        codeAuth.setCode(code);
 
         user.setAuthCode(codeAuth);
         userRepository.save(user);
+
+        this.mailerService.sendEmail(userDto.getEmail(), code, "Verify your account");
 
         return new ResponseDto<>(user, status, "Check the code that was sent to your email.");
     }
