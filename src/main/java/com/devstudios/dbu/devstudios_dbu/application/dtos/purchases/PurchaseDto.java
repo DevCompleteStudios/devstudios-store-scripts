@@ -13,13 +13,15 @@ public class PurchaseDto implements IPurchase {
     private PurchaseStatus status;
     private String transactionId;
     private Boolean isActive;
+    private Long id;
 
-    public PurchaseDto(IUserPreview user, String key, PurchaseStatus status, String transactionId, Boolean isActive) {
+    public PurchaseDto(IUserPreview user, String key, PurchaseStatus status, String transactionId, Boolean isActive, Long id) {
         this.user = user;
         this.key = key;
         this.status = status;
         this.transactionId = transactionId;
         this.isActive = isActive;
+        this.id = id;
     }
 
     public IUserPreview getUser() {
@@ -36,6 +38,9 @@ public class PurchaseDto implements IPurchase {
     }
     public Boolean getIsActive() {
         return isActive;
+    }
+    public Long getId() {
+        return id;
     }
 
 }

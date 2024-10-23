@@ -11,5 +11,6 @@ public interface IPurchase {
     public PurchaseStatus getStatus();
     public String getTransactionId();
     public Boolean getIsActive();
+    public Long getId();
 
 }

@@ -15,10 +15,11 @@ public class ScriptDto implements IScript {
     private Double price;
     private Boolean isActive;
     private List<IPurchase> purchases;
+    public Long id;
 
 
     public ScriptDto(String description, String name, String url, String image, Double price, Boolean isActive,
-            List<IPurchase> purchases) {
+            List<IPurchase> purchases, Long id) {
         this.description = description;
         this.name = name;
         this.url = url;
@@ -26,6 +27,7 @@ public class ScriptDto implements IScript {
         this.price = price;
         this.isActive = isActive;
         this.purchases = purchases;
+        this.id = id;
     }
 
     public String getDescription() {
@@ -72,6 +74,9 @@ public class ScriptDto implements IScript {
     }
     public void setPurchases(List<IPurchase> purchases) {
         this.purchases = purchases;
+    }
+    public Long getId() {
+        return id;
     }
 
 }

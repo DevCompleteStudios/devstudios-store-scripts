@@ -11,4 +11,5 @@ public interface IScript {
     public Double getPrice();
     public Boolean isActive();
     public List<IPurchase> getPurchases();
+    public Long getId();
 }

@@ -27,7 +27,8 @@ public class AutoMapper {
             scriptEntity.getImage(),
             scriptEntity.getPrice(),
             scriptEntity.getIsActive(),
-            purchases
+            purchases,
+            scriptEntity.getId()
         );
 
         return script;
@@ -39,7 +40,8 @@ public class AutoMapper {
             purchaseEntity.getKey(),
             purchaseEntity.getStatus(),
             purchaseEntity.getTransactionId(),
-            purchaseEntity.getIsActive()
+            purchaseEntity.getIsActive(),
+            purchaseEntity.getId()
         );
 
         return purchase;
